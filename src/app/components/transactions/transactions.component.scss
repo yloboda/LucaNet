@@ -1,0 +1,35 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+.transactions {
+  padding: 0 25px;
+  table {
+    @include full-width-height();
+    margin: 0 0 20px;
+
+    .mat-row:hover {
+      background-color: $gray-light;
+    }
+
+    td.cdk-column-btns {
+      text-align: center;
+    }
+  }
+
+  .results {
+    text-align: right;
+    margin: 0 20px 0 0;
+    @include display-flex(row, $align-items: "center");
+    justify-content: space-between;
+  }
+
+  .material-icons {
+    cursor: pointer;
+    vertical-align: middle;
+
+    &.preview-icon {
+      color: $blue;
+      font-size: 20px;
+    }
+  }
+}

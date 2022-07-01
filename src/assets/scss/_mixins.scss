@@ -1,0 +1,19 @@
+@mixin display-flex($direction:"", $justify-content:"", $align-items:"") {
+    display: flex;
+    flex-direction: unquote($direction);
+    justify-content: unquote($justify-content);
+    align-items: unquote($align-items);
+}
+
+@mixin clearfix() {
+    &::after {
+      display: block;
+      content: "";
+      clear: both;
+    }
+  }
+
+@mixin full-width-height() {
+  width: 100%;
+  height: 100%;
+}

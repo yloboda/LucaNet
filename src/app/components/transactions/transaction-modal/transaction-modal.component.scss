@@ -1,0 +1,9 @@
+.transaction-modal {
+  mat-form-field {
+    padding: 0 20px 0 0;
+  }
+
+  mat-form-field:last-child {
+    padding: 0;
+  }
+}

@@ -1,0 +1,68 @@
+<div class="transactions">
+  <h3>Transactions for type {{type}}</h3>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="transactions-table">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()" color="primary">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)"  color="primary">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Amount </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="currency">
+      <th mat-header-cell *matHeaderCellDef> Currency </th>
+      <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="btns">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <div class="image-btns-container">
+          <mat-icon class="preview-icon"
+                    matTooltip="Edit" (click)="editTransaction($event, element)">
+            create
+          </mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        (click)="selection.toggle(row)">
+    </tr>
+  </table>
+  <div class="results">
+    <div>
+      <a mat-stroked-button routerLink="/search">Back to Search</a>
+    </div>
+    <div>
+      <p>
+        <mat-error *ngIf="!isDataSelected">Please choose transactions</mat-error>
+        <mat-error *ngIf="!isSelectedMoreThanOne && isDataSelected">Please select more than one transactions</mat-error>
+        <mat-error *ngIf="!isSameCurrency">The currency should be the same for all selected transactions</mat-error>
+      </p>
+      <p *ngIf="transactionsSum">The equal sum is {{transactionsSum}} in {{currentCurrency}}</p>
+      <button mat-flat-button color="primary" (click)="calculateSum()">Calculate Sum</button>
+    </div>
+  </div>
+</div>
+
